@@ -139,4 +139,13 @@ async def chat_endpoint(request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Run the FastAPI server')
+    parser.add_argument('--port', type=int, default=8000, help='Port to run the server on')
+    parser.add_argument('--host', type=str, default='0.0.0.0', help='Host to run the server on')
+    
+    args = parser.parse_args()
+    
+    print(f"Starting server on {args.host}:{args.port}")
+    uvicorn.run("main:app", host=args.host, port=args.port, reload=True)
