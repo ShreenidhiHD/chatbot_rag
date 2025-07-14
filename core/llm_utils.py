@@ -178,12 +178,13 @@ Key Guidelines:
 - Mention pricing and availability
 - Guide towards making a purchase
 - Ask clarifying questions about preferences
-- For specific products, always include product ID, name, and price
+- IMPORTANT: Always use the EXACT product_id values from the context
 - Format product information clearly for easy UI integration
 
 Response Format:
 When mentioning specific products, use this format:
 **Product Name** (ID: product_id) - $price
+Where product_id MUST be the EXACT numerical ID from the context (e.g., 1, 2, 3)
 - Product description/features
 - [Available in store/online]
 
@@ -380,12 +381,16 @@ def extract_product_info(response: str) -> Dict[str, Any]:
     
     for match in matches:
         product_name, product_id, price = match
+        
+        # Clean up the product_id and ensure it's properly formatted
+        clean_product_id = product_id.strip()
+        
         products.append({
-            "id": product_id.strip(),
+            "id": clean_product_id,
             "name": product_name.strip(),
             "price": float(price.strip()),
-            "buy_link": f"/product/{product_id.strip()}",
-            "image_url": f"/images/{product_id.strip()}.jpg"
+            "buy_link": f"/product/{clean_product_id}",
+            "image_url": f"/images/product_{clean_product_id}.jpg"
         })
     
     return {

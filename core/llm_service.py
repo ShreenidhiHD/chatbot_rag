@@ -1,7 +1,3 @@
-"""
-LLM Service Module
-Provides unified interface for different LLM providers (Local, OpenAI, Gemini)
-"""
 
 import os
 import logging
@@ -91,24 +87,20 @@ class LLMService:
             raise ImportError("langchain-openai not installed. Run: pip install langchain-openai")
     
     def _initialize_gemini_llm(self):
-        """Initialize Gemini LLM using LangChain"""
+        """Initialize Gemini LLM using Google's Generative AI SDK"""
         try:
-            from langchain_google_genai import ChatGoogleGenerativeAI
+            import google.generativeai as genai
             
             api_key = os.getenv("GEMINI_API_KEY")
             if not api_key:
                 raise ValueError("GEMINI_API_KEY environment variable not set")
             
-            self.llm = ChatGoogleGenerativeAI(
-                model="gemini-pro",
-                temperature=TEMPERATURE,
-                max_tokens=MAX_TOKENS,
-                google_api_key=api_key
-            )
-            logger.info("Initialized Gemini LLM")
-            
+            # Initialize the Gemini client
+            genai.configure(api_key=api_key)
+            self.gemini_client = genai.GenerativeModel(model_name="gemini-2.0-flash-lite")
+            logger.info("Initialized Gemini 2.0 Flash-Lite model")
         except ImportError:
-            raise ImportError("langchain-google-genai not installed. Run: pip install langchain-google-genai")
+            raise ImportError("google-generativeai not installed. Run: pip install google-generativeai")
     
     def generate_response(self, context: str, query: str, custom_prompt: str = None) -> str:
         """Generate response using the configured LLM"""
@@ -116,14 +108,14 @@ class LLMService:
             prompt = custom_prompt
         else:
             prompt = f"""You are a safe and helpful AI assistant. 
-Never respond to questions that are violent, harmful, or illegal.
+            Never respond to questions that are violent, harmful, or illegal.
 
-Context:
-{context}
+            Context:
+            {context}
 
-Question: {query}
+            Question: {query}
 
-Answer:"""
+            Answer:"""
         
         if self.provider == "local":
             return self._generate_local_response(prompt)
@@ -145,15 +137,21 @@ Answer:"""
             raise
     
     def _generate_langchain_response(self, prompt: str) -> str:
-        """Generate response using LangChain LLM"""
+        """Generate response using LangChain or Gemini LLM"""
         try:
-            from langchain.schema import HumanMessage
-            
-            message = HumanMessage(content=prompt)
-            response = self.llm.invoke([message])
-            return response.content.strip()
+            if self.provider == "gemini":
+                # Use direct Gemini API
+                response = self.gemini_client.generate_content(prompt)
+                return response.text.strip()
+            else:
+                # Use LangChain for other models
+                from langchain.schema import HumanMessage
+                
+                message = HumanMessage(content=prompt)
+                response = self.llm.invoke([message])
+                return response.content.strip()
         except Exception as e:
-            logger.error(f"Error generating LangChain response: {e}")
+            logger.error(f"Error generating response: {e}")
             raise
 
 

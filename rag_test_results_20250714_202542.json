@@ -1,0 +1,34 @@
+{
+  "timestamp": "2025-07-14T20:25:18.450708",
+  "llm_provider": "gemini",
+  "total_questions": 2,
+  "successful_responses": 2,
+  "failed_responses": 0,
+  "intent_distribution": {
+    "sales": 2
+  },
+  "agent_distribution": {
+    "Sales Specialist": 2
+  },
+  "test_results": [
+    {
+      "question_number": 1,
+      "question": "What coffee beans do you have available?",
+      "intent": "sales",
+      "agent": "Sales Specialist",
+      "response": "Hello there, fellow coffee enthusiast! I'd be delighted to walk you through our fantastic selection of coffee beans. We have something for everyone, from the everyday drinker to the most discerning palate.\n\nLet's dive right in! Here's a peek at what we have:\n\n**Columbian Medium Roast** (ID: 1) - $15.00\n- A smooth cup of coffee perfect for any time of day.\n- [Available in store/online]\n\n**Brazilian - Organic** (ID: 2) - $18.00\n- It's like Carnival in a cup! Clean and smooth.\n- [Available in store/online]\n\n**Jamacian Coffee River** (ID: 3) - $19.75\n- \"Ya man,\" it will start your day off right!\n- [Available in store/online]\n\n**Ethiopia** (ID: 4) - $21.00\n- From the home of coffee!\n- [Available in store/online]\n\nDo any of these coffees sound appealing? Perhaps you're looking for something specific, like a particular roast level or origin? Knowing your preferences will help me guide you to the perfect choice.",
+      "sources_count": 5,
+      "error": null
+    },
+    {
+      "question_number": 2,
+      "question": "Do you have organic coffee options?",
+      "intent": "sales",
+      "agent": "Sales Specialist",
+      "response": "Yes, absolutely! We have a fantastic selection of organic coffee options. Are you looking for whole bean or brewed coffee?\n\nHere are a couple of our popular organic choices:\n\n**Organic Decaf Blend** (ID: 1) - $22.50\n- Our blend of hand-picked organic beans that have been naturally decaffeinated.\n- [Available in store/online]\n\n**Brazilian - Organic** (ID: 2) - $18.00\n- It's like Carnival in a cup! Clean and smooth.\n- [Available in store/online]\n\nWe also have **Brazilian Sm** (ID: 4) - $2.20 if you prefer your coffee brewed.\n- It's like Carnival in a cup. Clean and smooth.\n- [Available in store/online]\n\nTo complement your coffee, have you considered a tasty treat?\n\n**Sustainably Grown Organic** (ID: 3) - $7.60\n- Certified organic containing the highest quality ingredients.\n- [Available in store/online]\n\nDo any of these sound appealing, or would you like me to help you find something else?",
+      "sources_count": 5,
+      "error": null
+    }
+  ],
+  "success_rate": 100.0
+}

@@ -1,0 +1,60 @@
+RAG System Test Results
+Generated: 2025-07-14T20:25:18.450708
+LLM Provider: gemini
+Success Rate: 100.0%
+================================================================================
+
+Q1: What coffee beans do you have available?
+Intent: sales | Agent: Sales Specialist
+A: Hello there, fellow coffee enthusiast! I'd be delighted to walk you through our fantastic selection of coffee beans. We have something for everyone, from the everyday drinker to the most discerning palate.
+
+Let's dive right in! Here's a peek at what we have:
+
+**Columbian Medium Roast** (ID: 1) - $15.00
+- A smooth cup of coffee perfect for any time of day.
+- [Available in store/online]
+
+**Brazilian - Organic** (ID: 2) - $18.00
+- It's like Carnival in a cup! Clean and smooth.
+- [Available in store/online]
+
+**Jamacian Coffee River** (ID: 3) - $19.75
+- "Ya man," it will start your day off right!
+- [Available in store/online]
+
+**Ethiopia** (ID: 4) - $21.00
+- From the home of coffee!
+- [Available in store/online]
+
+Do any of these coffees sound appealing? Perhaps you're looking for something specific, like a particular roast level or origin? Knowing your preferences will help me guide you to the perfect choice.
+
+--------------------------------------------------------------------------------
+
+Q2: Do you have organic coffee options?
+Intent: sales | Agent: Sales Specialist
+A: Yes, absolutely! We have a fantastic selection of organic coffee options. Are you looking for whole bean or brewed coffee?
+
+Here are a couple of our popular organic choices:
+
+**Organic Decaf Blend** (ID: 1) - $22.50
+- Our blend of hand-picked organic beans that have been naturally decaffeinated.
+- [Available in store/online]
+
+**Brazilian - Organic** (ID: 2) - $18.00
+- It's like Carnival in a cup! Clean and smooth.
+- [Available in store/online]
+
+We also have **Brazilian Sm** (ID: 4) - $2.20 if you prefer your coffee brewed.
+- It's like Carnival in a cup. Clean and smooth.
+- [Available in store/online]
+
+To complement your coffee, have you considered a tasty treat?
+
+**Sustainably Grown Organic** (ID: 3) - $7.60
+- Certified organic containing the highest quality ingredients.
+- [Available in store/online]
+
+Do any of these sound appealing, or would you like me to help you find something else?
+
+--------------------------------------------------------------------------------
+

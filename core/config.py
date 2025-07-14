@@ -25,7 +25,7 @@ LLM_CONTEXT_SIZE = 2048
 # LLM Configuration
 LOCAL_LLM_MODEL_PATH = "~/Desktop/deve/llm_models/mistral/mistral-7b-instruct-v0.2.Q4_K_M.gguf"
 LOCAL_LLM_MODEL_NAME = "mistral-7b-instruct-v0.2"
-DEFAULT_LLM_PROVIDER = "local"  # Options: "local", "openai", "gemini"
+DEFAULT_LLM_PROVIDER = "gemini"  # Options: "local", "openai", "gemini"
 
 # API Keys (set these in environment variables)
 OPENAI_API_KEY = None  # Set via environment variable

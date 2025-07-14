@@ -112,16 +112,16 @@ class RAGSystem:
         try:
             # Safety check
             if not is_safe_query(query):
-            return {
-                "response": "I cannot provide information on harmful or dangerous topics.",
-                "intent": "blocked",
-                "agent": "Safety Filter",
-                "sources": [],
-                "products": [],
-                "metadata": {},
-                "error": "Unsafe query blocked"
-            }
-            
+                return {
+                    "response": "I cannot provide information on harmful or dangerous topics.",
+                    "intent": "blocked",
+                    "agent": "Safety Filter",
+                    "sources": [],
+                    "products": [],
+                    "metadata": {},
+                    "error": "Unsafe query blocked"
+                }
+                
             # Initialize chat history if not provided
             if chat_history is None:
                 chat_history = []

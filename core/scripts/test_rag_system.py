@@ -7,8 +7,13 @@ Tests the RAG system with predefined questions and saves results.
 import sys
 import logging
 import json
+import os
 from pathlib import Path
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 # Add the project root to the path
 project_root = Path(__file__).parent.parent.parent
