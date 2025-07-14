@@ -18,8 +18,6 @@ logger = logging.getLogger(__name__)
 
 
 class LLMService:
-    """Unified LLM service supporting multiple providers with singleton pattern"""
-    
     _instances = {}
     
     def __new__(cls, provider: str = DEFAULT_LLM_PROVIDER):
@@ -36,7 +34,6 @@ class LLMService:
         self.initialized = True
     
     def _initialize_llm(self):
-        """Initialize the LLM based on provider"""
         if self.provider == "local":
             self._initialize_local_llm()
         elif self.provider == "openai":
@@ -47,7 +44,6 @@ class LLMService:
             raise ValueError(f"Unsupported LLM provider: {self.provider}")
     
     def _initialize_local_llm(self):
-        """Initialize local LLM using llama-cpp-python"""
         try:
             from llama_cpp import Llama
             
@@ -64,16 +60,15 @@ class LLMService:
             logger.info(f"Initialized local LLM: {LOCAL_LLM_MODEL_NAME}")
             
         except ImportError:
-            raise ImportError("llama-cpp-python not installed. Run: pip install llama-cpp-python")
+            raise ImportError("Missing llama-cpp-python package")
     
     def _initialize_openai_llm(self):
-        """Initialize OpenAI LLM using LangChain"""
         try:
             from langchain_openai import ChatOpenAI
             
             api_key = os.getenv("OPENAI_API_KEY")
             if not api_key:
-                raise ValueError("OPENAI_API_KEY environment variable not set")
+                raise ValueError("Missing OPENAI_API_KEY environment variable")
             
             self.llm = ChatOpenAI(
                 model="gpt-3.5-turbo",
@@ -84,26 +79,23 @@ class LLMService:
             logger.info("Initialized OpenAI LLM")
             
         except ImportError:
-            raise ImportError("langchain-openai not installed. Run: pip install langchain-openai")
+            raise ImportError("Missing langchain-openai package")
     
     def _initialize_gemini_llm(self):
-        """Initialize Gemini LLM using Google's Generative AI SDK"""
         try:
             import google.generativeai as genai
             
             api_key = os.getenv("GEMINI_API_KEY")
             if not api_key:
-                raise ValueError("GEMINI_API_KEY environment variable not set")
+                raise ValueError("Missing GEMINI_API_KEY environment variable")
             
-            # Initialize the Gemini client
             genai.configure(api_key=api_key)
             self.gemini_client = genai.GenerativeModel(model_name="gemini-2.0-flash-lite")
             logger.info("Initialized Gemini 2.0 Flash-Lite model")
         except ImportError:
-            raise ImportError("google-generativeai not installed. Run: pip install google-generativeai")
+            raise ImportError("Missing google-generativeai package")
     
     def generate_response(self, context: str, query: str, custom_prompt: str = None) -> str:
-        """Generate response using the configured LLM"""
         if custom_prompt:
             prompt = custom_prompt
         else:
@@ -123,7 +115,6 @@ class LLMService:
             return self._generate_langchain_response(prompt)
     
     def _generate_local_response(self, prompt: str) -> str:
-        """Generate response using local LLM"""
         try:
             response = self.llm(
                 prompt,
@@ -137,14 +128,11 @@ class LLMService:
             raise
     
     def _generate_langchain_response(self, prompt: str) -> str:
-        """Generate response using LangChain or Gemini LLM"""
         try:
             if self.provider == "gemini":
-                # Use direct Gemini API
                 response = self.gemini_client.generate_content(prompt)
                 return response.text.strip()
             else:
-                # Use LangChain for other models
                 from langchain.schema import HumanMessage
                 
                 message = HumanMessage(content=prompt)
@@ -155,27 +143,22 @@ class LLMService:
             raise
 
 
-# Convenience functions for direct usage
 def call_local_llm(context: str, query: str, custom_prompt: str = None) -> str:
-    """Call local LLM directly"""
     service = LLMService(provider="local")
     return service.generate_response(context, query, custom_prompt)
 
 
 def call_openai_llm(context: str, query: str, custom_prompt: str = None) -> str:
-    """Call OpenAI LLM directly"""
     service = LLMService(provider="openai")
     return service.generate_response(context, query, custom_prompt)
 
 
 def call_gemini_llm(context: str, query: str, custom_prompt: str = None) -> str:
-    """Call Gemini LLM directly"""
     service = LLMService(provider="gemini")
     return service.generate_response(context, query, custom_prompt)
 
 
 def call_llm(context: str, query: str, provider: str = DEFAULT_LLM_PROVIDER, custom_prompt: str = None) -> str:
-    """Call any LLM provider"""
     service = LLMService(provider=provider)
     return service.generate_response(context, query, custom_prompt)
 

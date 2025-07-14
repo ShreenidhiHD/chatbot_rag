@@ -24,30 +24,21 @@ logger = logging.getLogger(__name__)
 
 
 def create_all_embeddings(safe_mode: bool = False):
-    """
-    Create embeddings for both products and documents.
-    
-    Args:
-        safe_mode: If True, uses safe embedding (skips duplicates)
-    """
     logger.info("Starting complete embedding process")
     
     try:
-        # Embed products
         logger.info("Step 1: Embedding products")
         if safe_mode:
             embed_products_safe()
         else:
             embed_products()
         
-        # Embed documents
         logger.info("Step 2: Embedding documents")
         
-        # List available document sources
         sources = list_document_sources()
         if sources:
             logger.info(f"Found document sources: {sources}")
-            embed_documents()  # Process all .txt files
+            embed_documents()
         else:
             logger.warning("No document sources found")
         
@@ -59,9 +50,6 @@ def create_all_embeddings(safe_mode: bool = False):
 
 
 def main():
-    """
-    Main function with command line argument handling.
-    """
     import argparse
     
     parser = argparse.ArgumentParser(
